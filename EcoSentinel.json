@@ -15,10 +15,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1000,
-        340
+        0,
+        880
       ],
-      "id": "5d5636b1-b36b-4aaf-b9f1-006bf8b3ae00",
+      "id": "4fbc82c4-a9f2-410e-b3c0-681a1c57d640",
       "name": "Schedule Trigger"
     },
     {
@@ -29,10 +29,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -360,
-        -440
+        640,
+        100
       ],
-      "id": "7311480f-652a-4c11-af31-e380f0fb6702",
+      "id": "bc18d0f0-7396-482f-9965-36088c38f683",
       "name": "Meteo data",
       "disabled": true
     },
@@ -53,10 +53,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        -440
+        40,
+        100
       ],
-      "id": "4f32fa5d-21fd-42e4-9e28-2f9533e58828",
+      "id": "44ce9c47-99c7-4184-8bd3-fe5b47f1dcb7",
       "name": "OpenAQ Sensors",
       "disabled": true,
       "onError": "continueRegularOutput"
@@ -70,11 +70,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1000,
-        -540
+        0,
+        0
       ],
       "typeVersion": 1,
-      "id": "a9a0ac93-c7dd-4942-bb19-a65ef1878f2f",
+      "id": "a4b79039-2e86-47fe-a223-bb2f3797a1b2",
       "name": "Sticky Note"
     },
     {
@@ -86,11 +86,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -400,
-        -540
+        600,
+        0
       ],
       "typeVersion": 1,
-      "id": "1fd155ab-4929-4d80-b046-bf7b70f0a38d",
+      "id": "e315af19-36a0-4af0-9530-375cc2eeadd6",
       "name": "Sticky Note1"
     },
     {
@@ -102,10 +102,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        -200,
-        700
+        800,
+        1240
       ],
-      "id": "684ef661-f336-44ba-b2a1-3b872c986b0a",
+      "id": "071df797-7e22-4f75-950b-21035a190461",
       "name": "Merge",
       "alwaysOutputData": false
     },
@@ -140,10 +140,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        700,
-        -520
+        1700,
+        20
       ],
-      "id": "94e3adf3-2dcd-4dd0-90f2-c64cb5356dce",
+      "id": "7293c525-041b-45ac-9758-bf3db547f2e4",
       "name": "Sanitation Risk",
       "alwaysOutputData": true,
       "disabled": true
@@ -179,10 +179,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        740,
-        -320
+        1740,
+        220
       ],
-      "id": "18534439-6524-4c09-a1cc-c595686965c5",
+      "id": "5a745d62-bea6-43c1-b070-34370aa4038f",
       "name": "Electricity Impact",
       "alwaysOutputData": true,
       "disabled": true
@@ -195,11 +195,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -520,
-        380
+        480,
+        920
       ],
       "typeVersion": 1,
-      "id": "ef2ba4df-df45-460b-8b8b-c0353daff828",
+      "id": "1b7eb605-4269-4d4c-b8e0-89bbcf4ed9c5",
       "name": "Sticky Note2"
     },
     {
@@ -209,10 +209,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -740,
-        -440
+        260,
+        100
       ],
-      "id": "572de7d0-7226-43f8-9145-47c25345d57c",
+      "id": "c1bcc246-e021-4a7f-81f5-f0ab488f7a40",
       "name": "extract data",
       "disabled": true
     },
@@ -223,10 +223,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -140,
-        -440
+        860,
+        100
       ],
-      "id": "fbbba33a-29a2-42c7-8a14-07b846df8f27",
+      "id": "993628bf-02c8-4989-b072-01606dda2548",
       "name": "extract data1",
       "disabled": true
     },
@@ -247,17 +247,11 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        220,
-        -500
+        1220,
+        40
       ],
-      "id": "6143ea82-518a-4ad9-9080-6689d0d8cc09",
+      "id": "4eb83fa6-1b9e-4605-b717-a6d7f37c7860",
       "name": "OpenAI",
-      "credentials": {
-        "openAiApi": {
-          "id": "VP8kDDvGzsHfOVx7",
-          "name": "OpenAi account"
-        }
-      },
       "disabled": true
     },
     {
@@ -288,14 +282,14 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -700,
-        -100
+        300,
+        440
       ],
-      "id": "da89c055-3084-4621-8489-491ececb6ff5",
+      "id": "43b497bb-c2a9-417b-812b-748574b22418",
       "name": "Acess Dumpsites",
       "credentials": {
         "postgres": {
-          "id": "SNzXTxS7ZEZtzYzB",
+          "id": "JepULLAvuy5gjPGC",
           "name": "Postgres account"
         }
       }
@@ -307,10 +301,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        220,
-        -320
+        1220,
+        220
       ],
-      "id": "e4aacdc1-f6e9-4f02-9d11-2915ff58fe7d",
+      "id": "87bfda2f-7bad-4149-9561-ca1bd88aec6e",
       "name": "Generate BBOX",
       "disabled": true
     },
@@ -350,16 +344,16 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -460,
-        540
+        540,
+        1080
       ],
-      "id": "42c980bb-2dde-480d-a2e8-460973f1d3bc",
+      "id": "abf7754f-8de5-4cc1-bfab-068dfc0aa237",
       "name": "sentinel token"
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://tile.googleapis.com/v1/createSession?key={{ $env.GOOGLE_MAPS_API_KEY }}\n",
+        "url": "=https://tile.googleapis.com/v1/createSession?key={{ $env[\"GOOGLE_MAPS_API_KEY\"] }}\n",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "{\n  \"mapType\": \"satellite\",\n  \"language\": \"en-US\",\n  \"region\": \"MA\"\n}",
@@ -368,10 +362,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -480,
-        160
+        520,
+        700
       ],
-      "id": "f2449191-6be6-40ff-b984-db0b87f96947",
+      "id": "a173b6b5-df72-4198-be64-5c243bb48a6b",
       "name": "google maps token"
     },
     {
@@ -381,10 +375,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -480,
-        -20
+        520,
+        520
       ],
-      "id": "59c19946-5f75-4faf-ad23-0d40797aa188",
+      "id": "7de2aa37-c992-4d13-8592-bb12afa1edb8",
       "name": "google maps xyz"
     },
     {
@@ -396,10 +390,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        -240,
-        80
+        760,
+        620
       ],
-      "id": "710127cf-d0bc-4400-9a5c-20e0429042c4",
+      "id": "4349cdf4-26b7-44db-b2f7-687a09da6e7a",
       "name": "Merge1",
       "alwaysOutputData": false
     },
@@ -411,40 +405,40 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        460,
-        -480
+        1460,
+        60
       ],
-      "id": "0b00e37c-9161-42cc-bc2e-b6558c147784",
+      "id": "758b369c-2424-4b81-b4e3-79618091f48f",
       "name": "Google Maps Tiles",
       "disabled": true
     },
     {
       "parameters": {
-        "content": "## Google Maps APi (Sala Al Jadida dumpsters)\nFetch satellite imagerie from  [Sentinel hub ](https://www.sentinel-hub.com/)",
+        "content": "## Google Maps APi (Sala Al Jadida dumpsters)\nFetch satellite imagerie from  [Google Maps ](https://www.google.com/maps)",
         "height": 440,
         "width": 640
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -520,
-        -100
+        500,
+        420
       ],
       "typeVersion": 1,
-      "id": "14fcb4fd-1647-4673-931b-fcec83206998",
+      "id": "f309787c-5d25-4f14-9c56-e064f3ba5d2b",
       "name": "Sticky Note3"
     },
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const z = $json[\"tileZ\"];\nconst x = $json[\"tileX\"];\nconst y = $json[\"tileY\"];\nconst session = $json[\"session\"];\nconst key = $json[\"GOOGLE_MAPS_API_KEY\"];\n\nconst tile_url = `https://tile.googleapis.com/v1/2dtiles/${z}/${x}/${y}?session=${session}&key=${key}`;\n\nreturn {\n  id: $json[\"id\"],\n  tile_url\n};\n"
+        "jsCode": "const z = $json[\"tileZ\"];\nconst x = $json[\"tileX\"];\nconst y = $json[\"tileY\"];\nconst session = $json[\"session\"];\nconst key = $env[\"GOOGLE_MAPS_API_KEY\"];\n\nconst tile_url = `https://tile.googleapis.com/v1/2dtiles/${z}/${x}/${y}?session=${session}&key=${key}`;\n\nreturn {\n  id: $json[\"id\"],\n  tile_url\n};\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -20,
-        80
+        980,
+        620
       ],
-      "id": "b8b7d0cc-2ff1-4613-baa7-15aa414c14b8",
+      "id": "d17b471d-b62d-483d-8e9c-60e067da6363",
       "name": "Get Tiles URL"
     },
     {
@@ -559,14 +553,14 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        200,
-        80
+        1980,
+        520
       ],
-      "id": "67f11b6d-77c6-41c4-b706-46f4f038e506",
+      "id": "26123d19-ce6b-4a7f-900e-490d2e270e0a",
       "name": "Update Tiles Url",
       "credentials": {
         "postgres": {
-          "id": "SNzXTxS7ZEZtzYzB",
+          "id": "JepULLAvuy5gjPGC",
           "name": "Postgres account"
         }
       }
@@ -598,233 +592,17 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -680,
-        840
+        320,
+        1380
       ],
-      "id": "10811b52-4c68-4ecf-a29e-3fb55e9a6448",
+      "id": "e7c60f53-963b-43b0-acff-37b73236e1aa",
       "name": "Acess River Tiles",
       "credentials": {
         "postgres": {
-          "id": "SNzXTxS7ZEZtzYzB",
+          "id": "JepULLAvuy5gjPGC",
           "name": "Postgres account"
         }
       }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://services.sentinel-hub.com/api/v1/process",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "=Bearer  {{ $json.access_token }}"
-            },
-            {
-              "name": "Accept",
-              "value": "image/jpeg"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"input\": {\n    \"bounds\": {\n      \"bbox\": [\n        {{ $json[\"bbox\"][0] }},\n        {{ $json[\"bbox\"][1] }},\n        {{ $json[\"bbox\"][2] }},\n        {{ $json[\"bbox\"][3] }}\n      ],\n      \"properties\": {\n        \"crs\": \"http://www.opengis.net/def/crs/OGC/1.3/CRS84\"\n      }\n    },\n    \"data\": [\n      {\n        \"type\": \"sentinel-2-l2a\",\n        \"dataFilter\": {\n          \"timeRange\": {\n            \"from\": \"2025-05-20T00:00:00Z\",\n            \"to\": \"2025-05-26T23:59:59Z\"\n          },\n          \"layer\": \"TRUE_COLOR\"\n        }\n      }\n    ]\n  },\n  \"output\": {\n    \"width\": 256,\n    \"height\": 256,\n    \"responses\": [\n      {\n        \"identifier\": \"default\",\n        \"format\": {\n          \"type\": \"image/jpeg\"\n        }\n      }\n    ]\n  }\n}\n",
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "file"
-            }
-          }
-        }
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        480,
-        -300
-      ],
-      "id": "0d0563a4-8aad-46fa-bd98-333c410f6932",
-      "name": "NDWI tiles",
-      "alwaysOutputData": true,
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tiles",
-          "mode": "list",
-          "cachedResultName": "tiles"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $json.id }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "name",
-              "displayName": "name",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "coordinates",
-              "displayName": "coordinates",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "options",
-              "canBeUsedToMatch": true,
-              "options": [],
-              "removed": true
-            },
-            {
-              "id": "bbox",
-              "displayName": "bbox",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "object",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "true_color_url",
-              "displayName": "true_color_url",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "ndwi_url",
-              "displayName": "ndwi_url",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "swir_url",
-              "displayName": "swir_url",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "created_at",
-              "displayName": "created_at",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true,
-              "removed": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        760,
-        600
-      ],
-      "id": "77cbe8a4-c6ca-4b5f-b1b2-64a30ef4f3cf",
-      "name": "Postgres",
-      "credentials": {
-        "postgres": {
-          "id": "SNzXTxS7ZEZtzYzB",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "language": "python",
-        "pythonCode": "import os\nimport datetime\n\n# Simulate image content (you get this from requests.post(...).content)\nimage_data = response.content  # binary data from Sentinel Hub API\n\n# Dynamic save directory\ntoday = datetime.date.today().isoformat()\noutput_dir = f\"C:/Users/ff/Desktop/MHD/Hack/EcoSentinel/River_tiles/{today}\"\nos.makedirs(output_dir, exist_ok=True)\n\n# Generate a file name\ntile_id = 123  # replace with actual ID\nimage_type = \"true_color\"  # or 'ndwi' / 'swir'\nfilename = f\"tile_{tile_id}_{image_type}.jpg\"\nfile_path = os.path.join(output_dir, filename)\n\n# Save the image\nwith open(file_path, \"wb\") as f:\n    f.write(image_data)\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        380,
-        600
-      ],
-      "id": "5d497768-f7fd-49c9-afe4-12075d8667cd",
-      "name": "Code"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://services.sentinel-hub.com/api/v1/process",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "=Bearer  {{ $json.access_token }}"
-            },
-            {
-              "name": "Accept",
-              "value": "image/jpeg"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"input\": {\n    \"bounds\": {\n      \"bbox\": [\n        {{ $json.bbox.minLon }},\n        {{ $json.bbox.minLat }},\n        {{ $json.bbox.maxLon }},\n        {{ $json.bbox.maxLat }}\n      ],\n      \"properties\": {\n        \"crs\": \"http://www.opengis.net/def/crs/OGC/1.3/CRS84\"\n      }\n    },\n    \"data\": [\n      {\n        \"type\": \"sentinel-2-l2a\",\n        \"dataFilter\": {\n          \"timeRange\": {\n            \"from\": \"2025-05-20T00:00:00Z\",\n            \"to\": \"2025-05-26T23:59:59Z\"\n          }\n        }\n      }\n    ]\n  },\n  \"output\": {\n    \"width\": {{ \n      (() => {\n        const maxPixels = 2048;\n        const minLon = $json.bbox.minLon;\n        const maxLon = $json.bbox.maxLon;\n        const minLat = $json.bbox.minLat;\n        const maxLat = $json.bbox.maxLat;\n\n        const bboxWidth = maxLon - minLon;\n        const bboxHeight = maxLat - minLat;\n\n        if (bboxWidth > bboxHeight) {\n          return maxPixels;\n        } else {\n          return Math.round(maxPixels * (bboxWidth / bboxHeight));\n        }\n      })()\n    }},\n    \"height\": {{ \n      (() => {\n        const maxPixels = 2048;\n        const minLon = $json.bbox.minLon;\n        const maxLon = $json.bbox.maxLon;\n        const minLat = $json.bbox.minLat;\n        const maxLat = $json.bbox.maxLat;\n\n        const bboxWidth = maxLon - minLon;\n        const bboxHeight = maxLat - minLat;\n\n        if (bboxHeight >= bboxWidth) {\n          return maxPixels;\n        } else {\n          return Math.round(maxPixels * (bboxHeight / bboxWidth));\n        }\n      })()\n    }},\n    \"responses\": [\n      {\n        \"identifier\": \"default\",\n        \"format\": {\n          \"type\": \"image/jpeg\"\n        }\n      }\n    ]\n  },\n\"evalscript\": \"//VERSION=3\\nfunction setup() {\\n  return {\\n    input: [\\\"B03\\\", \\\"B08\\\", \\\"dataMask\\\"],\\n    output: { bands: 3 }\\n  };\\n}\\n\\nconst ramp = [\\n  [-0.8, 0x008000],\\n  [0, 0xFFFFFF],\\n  [0.8, 0x0000CC]\\n];\\n\\nlet viz = new ColorRampVisualizer(ramp);\\n\\nfunction evaluatePixel(samples) {\\n  const val = index(samples.B03, samples.B08);\\n  let imgVals = viz.process(val);\\n  return imgVals.concat([samples.dataMask]);\\n}\"\n\n}",
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "file"
-            }
-          }
-        }
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        120,
-        440
-      ],
-      "id": "1fc0b35e-fdc0-4f5f-90be-b5c715cd4887",
-      "name": "NDWI tiles1",
-      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -857,10 +635,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        120,
-        600
+        1120,
+        1140
       ],
-      "id": "27d87465-422b-4cf1-85d6-dd016a4152a3",
+      "id": "3a0debe5-527e-406f-8ad0-e3cb652548eb",
       "name": "True Color tiles",
       "alwaysOutputData": true
     },
@@ -895,10 +673,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        120,
-        760
+        1120,
+        1300
       ],
-      "id": "10d9c358-e70e-43d5-a084-b9772cff3f90",
+      "id": "233292d5-19f7-4a87-b8bb-97478be42bed",
       "name": "SWIR tiles",
       "alwaysOutputData": true
     },
@@ -933,12 +711,247 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        120,
-        920
+        1120,
+        1460
       ],
-      "id": "f56e8dd8-db47-4884-98c3-d605f7bf60e4",
+      "id": "da8861c1-290b-407b-b7e8-d6b59d60270b",
       "name": "NDMI(Moisture) tiles",
       "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.sentinel-hub.com/api/v1/process",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer  {{ $json.access_token }}"
+            },
+            {
+              "name": "Accept",
+              "value": "image/jpeg"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"bounds\": {\n      \"bbox\": [\n        {{ $json[\"bbox\"][0] }},\n        {{ $json[\"bbox\"][1] }},\n        {{ $json[\"bbox\"][2] }},\n        {{ $json[\"bbox\"][3] }}\n      ],\n      \"properties\": {\n        \"crs\": \"http://www.opengis.net/def/crs/OGC/1.3/CRS84\"\n      }\n    },\n    \"data\": [\n      {\n        \"type\": \"sentinel-2-l2a\",\n        \"dataFilter\": {\n          \"timeRange\": {\n            \"from\": \"2025-05-20T00:00:00Z\",\n            \"to\": \"2025-05-26T23:59:59Z\"\n          },\n          \"layer\": \"TRUE_COLOR\"\n        }\n      }\n    ]\n  },\n  \"output\": {\n    \"width\": 256,\n    \"height\": 256,\n    \"responses\": [\n      {\n        \"identifier\": \"default\",\n        \"format\": {\n          \"type\": \"image/jpeg\"\n        }\n      }\n    ]\n  }\n}\n",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1480,
+        240
+      ],
+      "id": "14307923-99ef-430a-beb5-d48688c9aada",
+      "name": "NDWI tiles dea",
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.sentinel-hub.com/api/v1/process",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer  {{ $json.access_token }}"
+            },
+            {
+              "name": "Accept",
+              "value": "image/jpeg"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"bounds\": {\n      \"bbox\": [\n        {{ $json.bbox.minLon }},\n        {{ $json.bbox.minLat }},\n        {{ $json.bbox.maxLon }},\n        {{ $json.bbox.maxLat }}\n      ],\n      \"properties\": {\n        \"crs\": \"http://www.opengis.net/def/crs/OGC/1.3/CRS84\"\n      }\n    },\n    \"data\": [\n      {\n        \"type\": \"sentinel-2-l2a\",\n        \"dataFilter\": {\n          \"timeRange\": {\n            \"from\": \"2025-05-20T00:00:00Z\",\n            \"to\": \"2025-05-26T23:59:59Z\"\n          }\n        }\n      }\n    ]\n  },\n  \"output\": {\n    \"width\": {{ \n      (() => {\n        const maxPixels = 2048;\n        const minLon = $json.bbox.minLon;\n        const maxLon = $json.bbox.maxLon;\n        const minLat = $json.bbox.minLat;\n        const maxLat = $json.bbox.maxLat;\n\n        const bboxWidth = maxLon - minLon;\n        const bboxHeight = maxLat - minLat;\n\n        if (bboxWidth > bboxHeight) {\n          return maxPixels;\n        } else {\n          return Math.round(maxPixels * (bboxWidth / bboxHeight));\n        }\n      })()\n    }},\n    \"height\": {{ \n      (() => {\n        const maxPixels = 2048;\n        const minLon = $json.bbox.minLon;\n        const maxLon = $json.bbox.maxLon;\n        const minLat = $json.bbox.minLat;\n        const maxLat = $json.bbox.maxLat;\n\n        const bboxWidth = maxLon - minLon;\n        const bboxHeight = maxLat - minLat;\n\n        if (bboxHeight >= bboxWidth) {\n          return maxPixels;\n        } else {\n          return Math.round(maxPixels * (bboxHeight / bboxWidth));\n        }\n      })()\n    }},\n    \"responses\": [\n      {\n        \"identifier\": \"default\",\n        \"format\": {\n          \"type\": \"image/jpeg\"\n        }\n      }\n    ]\n  },\n\"evalscript\": \"//VERSION=3\\nfunction setup() {\\n  return {\\n    input: [\\\"B03\\\", \\\"B08\\\", \\\"dataMask\\\"],\\n    output: { bands: 3 }\\n  };\\n}\\n\\nconst ramp = [\\n  [-0.8, 0x008000],\\n  [0, 0xFFFFFF],\\n  [0.8, 0x0000CC]\\n];\\n\\nlet viz = new ColorRampVisualizer(ramp);\\n\\nfunction evaluatePixel(samples) {\\n  const val = index(samples.B03, samples.B08);\\n  let imgVals = viz.process(val);\\n  return imgVals.concat([samples.dataMask]);\\n}\"\n\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        980
+      ],
+      "id": "d6e2d75b-9d55-44c7-9d63-332a7689039f",
+      "name": "NDWI tiles",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        1740
+      ],
+      "id": "251e40df-8f1b-4e96-b20d-7cf6d6d79b11",
+      "name": "Statistical api",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        2060,
+        1360
+      ],
+      "id": "48c80454-5228-42dd-bc48-4356d9592c98",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1160,
+        1940
+      ],
+      "id": "a4e5de2a-d6ff-4abb-bdba-9af897ac1dc5",
+      "name": "Statistical api1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1180,
+        2120
+      ],
+      "id": "2b25d1fe-5226-453f-8646-2a580a38a9e9",
+      "name": "Statistical api2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1960,
+        1680
+      ],
+      "id": "3c6b576c-76ec-4e1b-94d7-8e37525a3261",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "6Y68mVTmrbv5iM07",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        2160,
+        1740
+      ],
+      "id": "3a7e40ef-20a9-4081-8c92-e28c0e54535e",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1520,
+        1000
+      ],
+      "id": "56fef799-820e-407c-b8cd-1da93d51e6b5",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1720,
+        760
+      ],
+      "id": "b783d502-8a4c-4908-ba59-1b83d9d7633d",
+      "name": "AWS",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1980,
+        740
+      ],
+      "id": "dbf98e2a-3da6-4863-b937-b55801675a3a",
+      "name": "URL insertion",
+      "credentials": {
+        "postgres": {
+          "id": "JepULLAvuy5gjPGC",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2460,
+        760
+      ],
+      "id": "4d7d07c4-45cb-4a3b-bdf4-e00ad7ceac93",
+      "name": "CV model",
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -1000,7 +1013,7 @@
             "index": 0
           },
           {
-            "node": "NDWI tiles1",
+            "node": "NDWI tiles",
             "type": "main",
             "index": 0
           },
@@ -1013,23 +1026,13 @@
             "node": "NDMI(Moisture) tiles",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Statistical api",
+            "type": "main",
+            "index": 0
           }
         ]
-      ]
-    },
-    "extract data": {
-      "main": [
-        []
-      ]
-    },
-    "Sanitation Risk": {
-      "main": [
-        []
-      ]
-    },
-    "OpenAI": {
-      "main": [
-        []
       ]
     },
     "Acess Dumpsites": {
@@ -1041,11 +1044,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Generate BBOX": {
-      "main": [
-        []
       ]
     },
     "sentinel token": {
@@ -1092,11 +1090,6 @@
         ]
       ]
     },
-    "Google Maps Tiles": {
-      "main": [
-        []
-      ]
-    },
     "Get Tiles URL": {
       "main": [
         [
@@ -1119,22 +1112,154 @@
         ]
       ]
     },
-    "Code": {
+    "True Color tiles": {
       "main": [
         [
           {
-            "node": "Postgres",
+            "node": "Merge2",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "True Color tiles": {
+    "Statistical api": {
       "main": [
         [
           {
-            "node": "Code",
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Statistical api1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Statistical api2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NDWI tiles": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SWIR tiles": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NDMI(Moisture) tiles": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AWS": {
+      "main": [
+        [
+          {
+            "node": "URL insertion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "URL insertion": {
+      "main": [
+        [
+          {
+            "node": "CV model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CV model": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Tiles Url": {
+      "main": [
+        [
+          {
+            "node": "CV model",
             "type": "main",
             "index": 0
           }
@@ -1146,11 +1271,10 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "bdb0d3d4-f7af-461b-9b60-500935d04150",
+  "versionId": "93b6e235-8a0b-4558-9056-0e86cb6ef70d",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "b53b6c50bf5c2a6f7a87ebca45a14cfd4ea4ba71d51c0262f50b195790588785"
+    "instanceId": "6c159fa560023679b1be8c825e9cfbfcb6734c43e1006fe6b2394b810902087c"
   },
-  "id": "6oyK8ipmbmTtDb0u",
+  "id": "EJxzJeWuSTaBDfb9",
   "tags": []
 }
