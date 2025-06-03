@@ -9,11 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  loadLottieAnimation("pollution_animation", "static/pollution_animation.json");
-  loadLottieAnimation("weather-animation", "static/Animation-Weather.json");
-  loadLottieAnimation("soil-animation", "static/Animation-Soil.json");
-  loadLottieAnimation("ndvi-animation", "static/Animation-NDVI.json");
-  loadLottieAnimation("location-animation", "static/Animation-Location.json");
+  loadLottieAnimation("pollution_animation", "static/Animation-Pollution.json");
+  loadLottieAnimation("trash-animation", "static/Animation-Dumptruck.json");
+  loadLottieAnimation("water-animation", "static/Animation-River.json");
+  loadLottieAnimation("login-animation", "static/Animation-Login.json");
 
   const blurOverlay = document.getElementById("blur-overlay");
   const mapWindow = document.getElementById("map-window");
@@ -234,5 +233,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (recordBtn) {
       recordBtn.style.display = "none";
     }
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const flash = document.querySelector(".flash-wrapper");
+  if (flash) {
+    setTimeout(() => {
+      flash.style.display = "none";
+    }, 5000); // hide after 5 seconds
   }
 });

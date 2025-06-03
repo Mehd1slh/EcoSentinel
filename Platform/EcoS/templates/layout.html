@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='AM logo.png') }}" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='EcoS_icon.png') }}" />
     {% if title %}
     <title>{{ _('AGRIMAR -') }} {{ title }}</title>
     {% else %}
@@ -36,7 +36,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <a class="nav-item nav-link" href="/home">
-              <img src="{{ url_for('static', filename='EcoSentinel.png') }}" alt="{{ _('Your Logo') }}" height="45" />
+              <img src="{{ url_for('static', filename='EcoS_white2.png') }}" alt="{{ _('Your Logo') }}" height="45" />
             </a>
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{{ url_for('home') }}#">{{ _('Home') }}</a>
@@ -69,16 +69,21 @@
       </nav>
     </header>
 
-    <main role="main" class="container">
+    <main role="main" class="container ">
       <div class="row justify-content-center">
         <div class="col-md-12 h-100">
-          <!-- flashs are one time alerts-->
 
-          <div class="col-md-12 d-flex justify-content-center">
-            {% with messages = get_flashed_messages(with_categories =true) %} {% if messages %} {% for category , message in messages%}
-            <div class="alert alert-{{ category }} text-center">{{ message }}</div>
-            {% endfor %} {% endif %} {% endwith %}
+          <!-- flashs are one time alerts-->
+          <div class="flash-wrapper position-fixed w-100 d-flex justify-content-center" style="top: 80px; left: 0; z-index: 9999;">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} text-center shadow-lg">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
           </div>
+          
           {% block content %}{% endblock %}
         </div>
       </div>
