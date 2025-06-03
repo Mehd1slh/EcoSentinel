@@ -1,4 +1,4 @@
-EcoSentinel.docx
-EcoSentinel.pdf
-n8n.env
-plan.txt
+workflow/n8n.env
+workflow/n8n_db.sql
+Docs/
+Platform/EcoS.env

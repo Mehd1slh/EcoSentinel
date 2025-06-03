@@ -1,0 +1,214 @@
+{% extends "layout.html" %} {% block content %}
+<head>
+  <!-- Include Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script>
+    const userProfileImage = "{{ img_file }}";
+  </script>
+</head>
+
+<body>
+
+  <!-- About Section -->
+  <div id="about" class="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-5 col-lg-5 col-md-5 co-sm-l2">
+          <div
+            class="about_box"
+            data-aos="fade-right"
+            data-aos-offset="400"
+            data-aos-duration="1000"
+          >
+            <h2>
+              {{ _('About EcoSentinel') }}<br /><strong class="black"
+                >{{ _('Smart Environmental Guardian') }}</strong
+              >
+            </h2>
+            <p>
+              {{ _('EcoSentinel is an AI-powered platform that monitors pollution and carbon footprints in real-time using satellite imagery, open environmental APIs, and citizen reports. By combining automation with AI, EcoSentinel detects anomalies, classifies environmental hazards, and alerts local authorities and citizens through dashboards, emails, and SMS. Our mission is simple: Dépolluer, Décarboner, and Régénérer urban and natural spaces.') }}
+            </p>
+            <a href="#">{{ _('Read More') }}</a>
+          </div>
+        </div>
+        <div class="col-xl-7 col-lg-7 col-md-7 co-sm-l2">
+          <div
+            class="about_img"
+            data-aos="fade-left"
+            data-aos-offset="400"
+            data-aos-duration="1000"
+          >
+            <figure><div id="pollution_animation"></div></figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Section -->
+  <div id="discover" class="offer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title ttl">
+            <h2>
+              {{ _('Reporting') }}<strong class="black">
+                {{ _('Space') }}</strong
+              >
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="offer-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 margin_ttt">
+            <div class="offer_box">
+              <h3>{{ _('Water Pollution') }}</h3>
+              <figure>
+                <div
+                  id="soil-animation"
+                  class="lottie-container"
+                  data-aos="zoom-in"
+                ></div>
+              </figure>
+              <p data-aos="fade-up">
+                {{ _('Global soil informations provided by ISRIC, contains
+                various soil properties, such as soil organic carbon, pH, soil
+                texture (sand, silt, clay), bulk density, cation exchange
+                capacity, and more.') }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="col-xl-4 col-lg-4 col-md-4 col-sm-12 margin-lkk"
+            data-aos="zoom-in"
+          >
+            <div class="offer_box">
+              <h3>{{ _('Garbage Accumilation') }}</h3>
+              <figure>
+                <div
+                  id="ndvi-animation"
+                  class="lottie-container"
+                  data-aos="zoom-in"
+                ></div>
+              </figure>
+              <p data-aos="fade-up">
+                {{ _('The Normalized Difference Vegetation Index (NDVI) measures
+                vegetation health using satellite data.') }}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <a href="/request_report" class="read-more"
+              >{{ _('Report your Case') }}</a
+            >
+            <div class="user_info">
+              <p>
+                ⚠️ {{ _('the data based on coords and may take time to generate
+                the report (up to 5mins)') }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock content %} {% block footer %}
+  <footer id="contact_us">
+    <div class="footer top_layer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="address">
+              <a href="{{ url_for('home') }}">
+                <img
+                  src="static/AGRIMAR 2.png"
+                  alt="logo"
+                  class="footer-logo"
+                />
+              </a>
+              <p>
+                {{ _('A project by Salih El Mehdi & Akchouch Abdelhakim, powered
+                by Chat GPT-4, Openweather, OpenStreetMap, and SoilGrids. It
+                aims to provide the best agricultural information to users.') }}
+              </p>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="address">
+              <h3>{{ _('Quick links') }}</h3>
+              <ul class="Links_footer">
+                <li>
+                  <img src="static/3.png" />
+                  <a href="{{ url_for('login') }}">{{ _('Join Us') }}</a>
+                </li>
+                <li>
+                  <img src="static/3.png" alt="#" />
+                  <a href="#">{{ _('Maintenance') }}</a>
+                </li>
+                <li>
+                  <img src="static/3.png" alt="#" />
+                  <a href="#">{{ _('Language Packs') }}</a>
+                </li>
+                <li>
+                  <img src="static/3.png" alt="#" />
+                  <a href="#">{{ _('LearnPress') }}</a>
+                </li>
+                <li>
+                  <img src="static/3.png" alt="#" />
+                  <a href="#">{{ _('Release Status') }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="address">
+              <h3>{{ _('Subscribe email') }}</h3>
+              <p>
+                {{ _('Enter your email below to get the latest updates, join our
+                AGRIMAR community!') }}
+              </p>
+              <input
+                class="form-control"
+                placeholder="{{ _('Your Email') }}"
+                type="type"
+                name="Your Email"
+              />
+              <button class="submit-btn">{{ _('Submit') }}</button>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="address">
+              <h3>{{ _('Contact Us') }}</h3>
+              <ul class="loca">
+                <li>
+                  <a href="#"><img src="static/loc1.png" alt="#" /></a>{{
+                  _('Avenue des Nations Unies, Agdal, Rabat Maroc') }}
+                </li>
+                <li>
+                  <a href="#"><img src="static/email1.png" alt="#" /></a
+                  >fstbm.agrimar@gmail.com
+                </li>
+                <li>
+                  <a href="#"><img src="static/call1.png" alt="#" /></a
+                  >+12586954775
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <div class="container">
+        <p>© 2024 {{ _('All Rights Reserved.') }}</p>
+      </div>
+    </div>
+  </footer>
+  {% endblock footer %}
+</body>
