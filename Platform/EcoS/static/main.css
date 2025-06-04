@@ -104,7 +104,7 @@ h6 {
   position: relative;
   width: 100vw;        /* ✅ Use viewport width */
   max-width: 100%;     /* ✅ Prevent overflow */
-  height: 100vh;
+  height: calc(100vh - 5rem);
   display: flex;
   align-items: center; /* Vertically center */
   justify-content: center; /* Horizontally center */

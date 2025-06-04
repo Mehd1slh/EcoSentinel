@@ -3,3 +3,4 @@ workflow/n8n_db.sql
 Docs/
 Platform/EcoS.env
 Platform/EcoS/static/profile_pics
+Platform/EcoS/__pycache__
