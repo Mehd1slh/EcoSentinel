@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oued Bouregreg Pollution Report</title>
+
+  <!-- Lien vers ton CSS principal -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+  <!-- CSS spécifique à cette page -->
+  <style>
+    body.pollution-page {
+  background: url("/static/oued bouregrag.jpg") no-repeat center center fixed;      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    body.pollution-page::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(75, 71, 71, 0.4); /* effet foncé */
+      z-index: -1;
+    }
+  </style>
+</head>
+
+<!-- Ajoute la classe ici -->
+<body class="pollution-page">
+  <div class="form-container">
+    <div class="form-header">
+      <h1><i class="fas fa-water"></i> Oued Bouregreg Pollution Report</h1>
+      <p>Help us monitor the river by reporting visible pollution</p>
+    </div>
+    
+    <form class="pollution-form" action="#" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="size">Size of Pollution</label>
+        <div class="radio-group">
+          <div class="radio-option selected">
+            <div class="icon"></div>
+            <div class="text">Small</div>
+            <input type="radio" name="size" value="small" checked>
+          </div>
+          <div class="radio-option">
+            <div class="icon"></div>
+            <div class="text">Medium</div>
+            <input type="radio" name="size" value="medium">
+          </div>
+          <div class="radio-option">
+            <div class="icon"></div>
+            <div class="text">Big</div>
+            <input type="radio" name="size" value="big">
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="type">Type of Pollution</label>
+        <input type="text" id="type" name="type" placeholder="e.g. Plastic, Oil, Waste..." required>
+      </div>
+      
+      <div class="form-group">
+        <label for="place">Location</label>
+        <select id="place" name="place" required>
+          <option value="">-- Select location --</option>
+          <option value="rabat">Rabat</option>
+          <option value="sale">Salé</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>Upload a Photo</label>
+        <div class="file-upload">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <div class="info">
+            <h4>Click to upload pollution photo</h4>
+            <p>JPG, PNG or GIF (Max 5MB)</p>
+          </div>
+          <input type="file" id="photo" name="photo" accept="image/*" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="note">Additional Notes</label>
+        <textarea id="note" name="note" placeholder="Any details you want to share..."></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">
+        <i class="fas fa-paper-plane"></i> Submit Report
+      </button>
+      
+      
+    </form>
+    
+    <div class="form-footer">
+      <p>© 2025 Oued Bouregreg Conservation Initiative | Together we can protect our river</p>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.radio-option').forEach(option => {
+      option.addEventListener('click', function() {
+        this.parentNode.querySelectorAll('.radio-option').forEach(el => {
+          el.classList.remove('selected');
+        });
+        this.classList.add('selected');
+        this.querySelector('input[type="radio"]').checked = true;
+      });
+    });
+
+    document.getElementById('photo').addEventListener('change', function(e) {
+      if (this.files.length > 0) {
+        const fileName = this.files[0].name;
+        document.querySelector('.file-upload h4').textContent = fileName;
+        document.querySelector('.file-upload p').textContent = 'Click to change photo';
+      }
+    });
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const type = document.getElementById('type').value;
+      const place = document.getElementById('place').value;
+
+      if (!type || !place) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      const submitBtn = document.querySelector('.submit-btn');
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        alert('Report submitted successfully! Thank you for helping protect Oued Bouregreg.');
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Report';
+        submitBtn.disabled = false;
+        document.querySelector('form').reset();
+
+        document.querySelectorAll('.radio-option').forEach((el, index) => {
+          if (index === 0) {
+            el.classList.add('selected');
+          } else {
+            el.classList.remove('selected');
+          }
+        });
+
+        document.querySelector('.file-upload h4').textContent = 'Click to upload pollution photo';
+        document.querySelector('.file-upload p').textContent = 'JPG, PNG or GIF (Max 5MB)';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

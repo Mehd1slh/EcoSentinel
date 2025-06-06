@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Environmental Report</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+  <div class="report-selection-container floating">
+    <div class="report-header">
+      <h1>What would you like to report?</h1>
+      <p>Select the type of environmental issue you want to report. Your contribution helps protect our environment.</p>
+    </div>
+
+    <div class="report-options">
+      <div class="report-option-card pollution floating">
+        <div class="report-icon">
+          <i class="fas fa-smog"></i>
+        </div>
+        <h2 class="report-title">Pollution</h2>
+        <p class="report-description">Report air, water, soil pollution, or any other form of environmental contamination.</p>
+        <a href="/report/pollution" class="btn">Report Pollution <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="report-option-card waste floating delay-1">
+        <div class="report-icon">
+          <i class="fas fa-trash-alt"></i>
+        </div>
+        <h2 class="report-title">Waste</h2>
+        <p class="report-description">Report illegal dumping, unmanaged waste, or trash-related environmental concerns.</p>
+        <a href="/report/dechets" class="btn">Report Waste <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <p class="report-footer-note">
+      <i class="fas fa-info-circle"></i> All reports are treated confidentially by our environmental response team.
+    </p>
+  </div>
+
+  <script>
+    document.querySelectorAll('.report-option-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-15px)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
+</body>
+</html>
