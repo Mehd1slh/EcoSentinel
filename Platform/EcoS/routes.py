@@ -464,3 +464,15 @@ def river_layer_url():
     except Exception as e:
         print("❌ Exception:", str(e))
         return jsonify({"error": "Unexpected error", "detail": str(e)}), 500
+    
+@app.route("/report")
+def report_choice():
+    return render_template("report_choice.html")
+
+@app.route("/report/pollution")
+def report_pollution():
+    return render_template("report_pollution.html")
+
+@app.route("/report/dechets")
+def report_dechets():
+    return render_template("report_dechets.html")
