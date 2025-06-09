@@ -6,8 +6,8 @@ from pathlib import Path
 env_path = Path(__file__).resolve().parent.parent / 'EcoS.env'
 load_dotenv(dotenv_path=env_path)
 
-CLIENT_ID = "af5dea31-d9b8-4851-9119-f6e0ba4cf31d"
-CLIENT_SECRET = "ylJNAKJBJ1ej8T9vIiEiKS8xPCXqVL1G"
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 
 print("🔐 CLIENT_ID =", CLIENT_ID)
 print("🔐 CLIENT_SECRET =", CLIENT_SECRET)

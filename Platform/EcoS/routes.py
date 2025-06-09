@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta ,timezone
 from concurrent.futures import ThreadPoolExecutor
 from flask import render_template, redirect, url_for, flash, send_file, request, session, jsonify
-from EcoS.forms import LoginForm, MapForm, UpdateAccountForm
+from EcoS.forms import LoginForm, MapForm, RegistrationForm, UpdateAccountForm
 from EcoS.entities import User
 from EcoS.Sent_hub import evalscripts, get_access_token
 from EcoS import app, db, bcrypt , get_locale
@@ -50,16 +50,36 @@ def home():
     return render_template('home.html', current_locale=get_locale())
 
 
-@app.route("/users")
+@app.route("/users", methods=['GET', 'POST'])
 @login_required
 def users():
-    if current_user.is_authenticated:
-        if current_user.privilege == 'admin':
-            users = User.query.filter_by(privilege="user").all()
-            return render_template('users.html', title=_('Users'), users=users, current_locale=session.get('lang'))
-        else:
-            flash(_("You Don't have the admin privilege"), 'warning')
-            return redirect(url_for('home'))
+    if current_user.privilege != 'admin':
+        flash(_("You Don't have the admin privilege"), 'warning')
+        return redirect(url_for('home'))
+    
+    form = RegistrationForm()
+    all_users = User.query.all()
+    return render_template('users.html', title=_('Users'), users=all_users, form=form, current_locale=session.get('lang'))
+
+@app.route("/add_admin", methods=['POST'])
+@login_required
+def add_admin():
+    if current_user.privilege != 'admin':
+        flash(_("You don't have permission"), 'danger')
+        return redirect(url_for('users'))
+
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.mdp.data).decode('utf-8')
+        new_admin = User(username=form.username.data, email=form.email.data, mdp=hashed_password, privilege='admin')
+        db.session.add(new_admin)
+        db.session.commit()
+        flash(_('New admin added successfully!'), 'success')
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"{getattr(form, field).label.text}: {error}", 'danger')
+    return redirect(url_for('users'))
         
 @app.route('/delete_user', methods=['POST'])
 @login_required
@@ -167,10 +187,13 @@ def dashboard_stats():
         # Average River Pollution Score (NDWI/NDMI aggregate)
         avg_pollution = db.session.execute(
             text("""
-                SELECT AVG((ndwi.mean + swir.mean) / 2) as avg_score
-                FROM ndwi_data ndwi 
-                JOIN swir_data swir ON ndwi.tile_id = swir.tile_id 
-                WHERE ndwi.observation_date >= CURRENT_DATE - INTERVAL '7 days'
+                SELECT AVG(avg_mean) FROM (
+                    SELECT tile_id, AVG(mean) as avg_mean
+                    FROM tile_stats
+                    WHERE stat_type IN ('NDWI', 'SWIR')
+                    AND observation_date >= CURRENT_DATE - INTERVAL '7 days'
+                    GROUP BY tile_id
+                ) AS sub
             """)
         ).scalar() or 0
         
@@ -215,18 +238,18 @@ def pollution_trends():
         trends = db.session.execute(
             text("""
                 SELECT 
-                    DATE(ndwi.observation_date) as date,
-                    AVG(ndwi.mean) as ndwi_avg,
-                    AVG(swir.mean) as swir_avg,
+                    observation_date::date as date,
+                    AVG(CASE WHEN stat_type = 'NDWI' THEN mean END) as ndwi_avg,
+                    AVG(CASE WHEN stat_type = 'SWIR' THEN mean END) as swir_avg,
                     COUNT(*) as measurements
-                FROM ndwi_data ndwi
-                JOIN swir_data swir ON ndwi.tile_id = swir.tile_id 
-                    AND ndwi.observation_date = swir.observation_date
-                WHERE ndwi.observation_date >= CURRENT_DATE - INTERVAL '30 days'
-                GROUP BY DATE(ndwi.observation_date)
+                FROM tile_stats
+                WHERE stat_type IN ('NDWI', 'SWIR')
+                AND observation_date >= CURRENT_DATE - INTERVAL '30 days'
+                GROUP BY observation_date::date
                 ORDER BY date
             """)
         ).fetchall()
+
         
         return jsonify([{
             'date': row.date.isoformat(),

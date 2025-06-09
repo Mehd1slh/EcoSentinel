@@ -16,22 +16,22 @@ def inject_locale():
     # This makes the function available directly, allowing you to call it in the template
     return {'get_locale': get_locale}
 
-# class RegistrationForm(FlaskForm):
-#     username = StringField(_l(' Username '), validators=[DataRequired(), Length(min=3, max=20)])
-#     email = StringField(_l(' Email '), validators=[DataRequired(), Email()])
-#     mdp = PasswordField(_l(' Password '), validators=[DataRequired(), Length(min=6, max=15)])
-#     con_mdp = PasswordField(_l(' Confirm Password '), validators=[DataRequired(), Length(min=6, max=15), EqualTo('mdp')])
-#     submit = SubmitField(_l(' Sign Up '))
+class RegistrationForm(FlaskForm):
+    username = StringField(_l(' Username '), validators=[DataRequired(), Length(min=3, max=20)])
+    email = StringField(_l(' Email '), validators=[DataRequired(), Email()])
+    mdp = PasswordField(_l(' Password '), validators=[DataRequired(), Length(min=6, max=15)])
+    con_mdp = PasswordField(_l(' Confirm Password '), validators=[DataRequired(), Length(min=6, max=15), EqualTo('mdp')])
+    submit = SubmitField(_l(' Sign Up '))
 
-#     def validate_username(self, username):
-#         user = User.query.filter_by(username=username.data).first()
-#         if user:
-#             raise ValidationError(_(' That username is taken, please choose another one '))
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError(_(' That username is taken, please choose another one '))
 
-#     def validate_email(self, email):
-#         user = User.query.filter_by(email=email.data).first()
-#         if user:
-#             raise ValidationError(_(' That email is taken, please choose another one '))
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError(_(' That email is taken, please choose another one '))
     
 
 class LoginForm(FlaskForm):

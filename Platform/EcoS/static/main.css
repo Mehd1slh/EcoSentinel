@@ -212,7 +212,7 @@ h6 {
 }
 
 .offer .offer-bg {
-  background: dimgray;
+  background: #050c3c;
   text-align: center;
   border-radius: 15px;
   margin-bottom: 120px;
@@ -243,17 +243,23 @@ h6 {
   font-size: 25px;
   font-weight: 500;
   color: #fff;
-  padding-bottom: 30px;
+  padding-bottom: 15px;
 }
 .offer .offer-bg .offer_box p {
   padding-top: 25px;
   font-size: 17px;
   line-height: 23px;
-  color: #fff;
+  color: #e2e7e3;
+}
+
+.offer .offer-bg .user_info p {
+  font-size: 15px;
+  line-height: 23px;
+  color: whitesmoke;
 }
 
 .read-more {
-  margin: 30px auto 10px auto;
+  margin: 10px auto 10px auto;
   display: block;
   background: #fff;
   color: #000 !important;
@@ -286,7 +292,7 @@ h6 {
 
 /* footer */
 .footer {
-  background-color: #5f788a;
+  background-color: #050c3c;
   padding: 30px 30px;
 }
 
@@ -323,7 +329,7 @@ h6 {
   font-size: 20px;
   font-weight: 600;
   padding-bottom: 8px;
-  border-bottom: 3px solid #140297;
+  border-bottom: 3px solid whitesmoke;
   margin-bottom: 15px;
   width: max-content;
 }
@@ -396,5 +402,12 @@ ul.Links_footer li a:hover {
   margin-right: 8px;
 }
 
-
 /* End footer */
+
+/* Account image styles */
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
