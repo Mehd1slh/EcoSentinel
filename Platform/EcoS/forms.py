@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed 
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField
+from flask_wtf.file import FileField, FileAllowed, FileRequired
+from wtforms import StringField, RadioField, PasswordField, SubmitField, BooleanField, FloatField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from EcoS.entities import User
 from EcoS import app , get_locale
@@ -39,12 +39,6 @@ class LoginForm(FlaskForm):
     mdp = PasswordField(_l(' Password '), validators=[DataRequired(), Length(min=6, max=15)])
     remember = BooleanField(_l(' Remember Me '))
     submit = SubmitField(_l(' Login '))
-
-
-class MapForm(FlaskForm):
-    lat = FloatField(_l(' Latitude '), validators=[DataRequired()])
-    lon = FloatField(_l(' Longitude '), validators=[DataRequired()])
-    submit = SubmitField(_l(' Submit '))
     
 
 class UpdateAccountForm(FlaskForm):
@@ -64,6 +58,37 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError(_(' That email is taken, please choose another one '))
+            
+
+class WasteReportForm(FlaskForm):
+    need = RadioField(_l("Your Issue"), choices=[
+        ("pleines", _l("Bins Full")),
+        ("non-ramassees", _l("Not Collected")),
+        ("autre", _l("Other"))
+    ], default="pleines", validators=[DataRequired()])
+    latitude = FloatField(_l("Latitude"), validators=[DataRequired()])
+    longitude = FloatField(_l("Longitude"), validators=[DataRequired()])
+    image = FileField(_l("Upload Image"), validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'jpeg', 'png', 'gif'], _l('Images only!'))
+    ])
+    description = TextAreaField(_l("Additional Notes"))
+
+
+class PollutionReportForm(FlaskForm):
+    size = RadioField(_l("Pollution Size"), choices=[
+        ("small", _l("Small")),
+        ("medium", _l("Medium")),
+        ("big", _l("Big"))
+    ], default="small", validators=[DataRequired()])
+    type = StringField(_l("Type of Pollution"), validators=[DataRequired()])
+    latitude = FloatField(_l("Latitude"), validators=[DataRequired()])
+    longitude = FloatField(_l("Longitude"), validators=[DataRequired()])
+    image = FileField(_l("Upload Image"), validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'jpeg', 'png', 'gif'], _l('Images only!'))
+    ])
+    description = TextAreaField(_l("Additional Notes"))
             
 # class RequestResetForm(FlaskForm):
 #     email = StringField(_l(' Email '), validators=[DataRequired(), Email()])

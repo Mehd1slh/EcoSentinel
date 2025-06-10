@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta ,timezone
 from concurrent.futures import ThreadPoolExecutor
 from flask import render_template, redirect, url_for, flash, send_file, request, session, jsonify
-from EcoS.forms import LoginForm, MapForm, RegistrationForm, UpdateAccountForm
+from EcoS.forms import LoginForm, RegistrationForm, UpdateAccountForm, WasteReportForm, PollutionReportForm
 from EcoS.entities import User
 from EcoS.Sent_hub import evalscripts, get_access_token
 from EcoS import app, db, bcrypt , get_locale
@@ -11,6 +11,7 @@ import secrets, os, io, requests, smtplib, uuid, json
 from flask_babel import Babel, _,lazy_gettext 
 from dotenv import load_dotenv
 from sqlalchemy import text, func
+from werkzeug.utils import secure_filename
 
 
 executor = ThreadPoolExecutor()
@@ -461,7 +462,8 @@ def river_layer_url():
                         "timeRange": {
                                 "from": formatted_from,
                                 "to": formatted_to
-                        }
+                        },
+                        "maxCloudCoverage": 40
                     }
                 }]
             },
@@ -487,3 +489,40 @@ def river_layer_url():
     except Exception as e:
         print("❌ Exception:", str(e))
         return jsonify({"error": "Unexpected error", "detail": str(e)}), 500
+
+
+def save_report_image(image_file, folder="report_photos"):
+    if not image_file:
+        return None
+    random_hex = secrets.token_hex(8)
+    filename = secure_filename(image_file.filename)
+    _, f_ext = os.path.splitext(filename)
+    new_filename = random_hex + f_ext
+    save_path = os.path.join(app.root_path, 'static', folder, new_filename)
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    image_file.save(save_path)
+    return f"{folder}/{new_filename}"    
+
+@app.route("/report")
+def report_choice():
+    return render_template("report_choice.html")
+
+@app.route("/report/pollution", methods=["GET", "POST"])
+def report_pollution():
+    form = PollutionReportForm()
+    if form.validate_on_submit():
+        photo_path = save_report_image(form.image.data)
+        # Save form.type.data, form.place.data, etc.
+        flash("✅ Pollution report submitted successfully.", "success")
+        return redirect(url_for("report_pollution"))
+    return render_template("report_pollution.html", form=form, page_class="pollution-page")
+
+@app.route("/report/dechets")
+def report_dechets():
+    form = WasteReportForm()
+    if form.validate_on_submit():
+        photo_path = save_report_image(form.image.data)
+        # Here you can log to the DB or any service
+        flash("✅ Waste report submitted successfully.", "success")
+        return redirect(url_for("report_dechets"))
+    return render_template("report_dechets.html", form=form, page_class="dechets-page")

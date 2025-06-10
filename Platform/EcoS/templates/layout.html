@@ -21,7 +21,7 @@
 
     <!-- Stylesheets -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"  crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='EcoS_icon.png') }}" />
@@ -33,7 +33,7 @@
     {% endif %}
   </head>
 
-  <body>
+  <body class="{{ page_class or '' }}">
     <script>
       AOS.init();
     </script>
@@ -82,25 +82,31 @@
       </nav>
     </header>
 
-    <main role="main" class="container">
+    <main role="main">
+  <!-- Flash alerts (shown on all pages) -->
+  <div class="flash-wrapper position-fixed w-100 d-flex justify-content-center" style="top: 80px; left: 0; z-index: 9999;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} text-center shadow-lg">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  {% if page_class == 'dechets-page' %}
+    {{ self.content() }}
+  {% else %}
+    <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-12 h-100">
-
-          <!-- Flash alerts -->
-          <div class="flash-wrapper position-fixed w-100 d-flex justify-content-center" style="top: 80px; left: 0; z-index: 9999;">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-                {% for category, message in messages %}
-                  <div class="alert alert-{{ category }} text-center shadow-lg">{{ message }}</div>
-                {% endfor %}
-              {% endif %}
-            {% endwith %}
-          </div>
-
-          {% block content %}{% endblock %}
+          {{ self.content() }}
         </div>
       </div>
-    </main>
+    </div>
+  {% endif %}
+</main>
+
 
     <footer>{% block footer %}{% endblock %}</footer>
   </body>

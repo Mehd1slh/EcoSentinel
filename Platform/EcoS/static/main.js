@@ -1,35 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
-  function loadLottieAnimation(containerId, animationPath) {
-    return lottie.loadAnimation({
-      container: document.getElementById(containerId),
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      path: animationPath,
-    });
+  function loadLottieIfExists(id, path) {
+    const container = document.getElementById(id);
+    if (container) {
+      lottie.loadAnimation({
+        container,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path,
+      });
+    }
   }
 
-  loadLottieAnimation("pollution_animation", "static/Animation-Pollution.json");
-  loadLottieAnimation("trash-animation", "static/Animation-Dumptruck.json");
-  loadLottieAnimation("water-animation", "static/Animation-River.json");
-  loadLottieAnimation("login-animation", "static/Animation-Login.json");
+  loadLottieIfExists("pollution_animation", "/static/Animation-Pollution.json");
+  loadLottieIfExists("trash-animation", "/static/Animation-Dumptruck.json");
+  loadLottieIfExists("water-animation", "/static/Animation-River.json");
+  loadLottieIfExists("login-animation", "/static/Animation-Login.json");
 
   const blurOverlay = document.getElementById("blur-overlay");
   const mapWindow = document.getElementById("map-window");
   const container = document.querySelector(".container");
 
-  document
-    .getElementById("close-map-window")
-    .addEventListener("click", function () {
-      blurOverlay.style.display = "none";
-      container.classList.remove("blur-effect");
-      mapWindow.style.display = "none";
-    });
+  document.getElementById("close-map-window").addEventListener("click", function () {
+    blurOverlay.style.display = "none";
+    container.classList.remove("blur-effect");
+    mapWindow.style.display = "none";
+  });
 
   let map, marker;
 
-  function initMap() {
-    map = L.map("map").setView([34.007634, -6.838341], 8);
+  function initMap(centerCoords = [34.007634, -6.838341], zoom = 8) {
+    map = L.map("map").setView(centerCoords, zoom);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
@@ -71,31 +72,37 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  document
-    .getElementById("location-btn")
-    .addEventListener("click", function () {
-      mapWindow.style.display = "block";
-      blurOverlay.style.display = "block";
-      container.classList.add("blur-effect");
+  document.getElementById("location-btn").addEventListener("click", function () {
+    mapWindow.style.display = "block";
+    blurOverlay.style.display = "block";
+    container.classList.add("blur-effect");
+
+    const isWastePage = document.body.classList.contains("dechets-page");
+    const isPollutionPage = document.body.classList.contains("pollution-page");
+
+    if (isWastePage) {
+      initMap([33.9977, -6.735], 14);
+    } else if (isPollutionPage) {
+      initMap([34.014, -6.806], 13);
+    } else {
       initMap();
-    });
+    }
+  });
 
-  document
-    .getElementById("location-form")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
-      const lat = document.getElementById("latitude").value;
-      const lng = document.getElementById("longitude").value;
+  document.getElementById("location-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const lat = document.getElementById("latitude").value;
+    const lng = document.getElementById("longitude").value;
 
-      if (lat && lng) {
-        blurOverlay.style.display = "none";
-        container.classList.remove("blur-effect");
-        mapWindow.style.display = "none";
-        this.submit();
-      } else {
-        console.error("Latitude and longitude are required.");
-      }
-    });
+    if (lat && lng) {
+      blurOverlay.style.display = "none";
+      container.classList.remove("blur-effect");
+      mapWindow.style.display = "none";
+      this.submit();
+    } else {
+      console.error("Latitude and longitude are required.");
+    }
+  });
 
   // Chatbot interaction
   $("#messageArea").on("submit", function (event) {
