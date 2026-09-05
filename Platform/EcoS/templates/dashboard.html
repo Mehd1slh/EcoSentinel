@@ -1,0 +1,950 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="dashboard-container mt-4">
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white text-3xl font-bold">{{ _('EcoSentinel Admin Dashboard') }}</h1>
+      <button class="btn btn-primary btn-sm" onclick="refreshDashboard()">
+        <i class="fas fa-sync-alt"></i> {{ _('Refresh') }}
+      </button>
+    </div>
+  </div>
+
+  <!-- 1. Main Dashboard Stats Cards -->
+  <div class="row mb-4">
+    <div class="col-md-2">
+      <div class="stat-card card bg-success text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+          <h3 id="total-alerts">--</h3>
+          <p class="mb-0">{{ _('Active Alerts') }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="stat-card card bg-warning text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-water fa-2x mb-2"></i>
+          <h3 id="avg-pollution">--</h3>
+          <p class="mb-0">{{ _('Avg Pollution Score') }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="stat-card card bg-danger text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-trash fa-2x mb-2"></i>
+          <h3 id="full-dumpsters">--</h3>
+          <p class="mb-0">{{ _('Full Dumpsters') }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="stat-card card bg-info text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-camera fa-2x mb-2"></i>
+          <h3 id="tiles-processed">--</h3>
+          <p class="mb-0">{{ _('Tiles Processed') }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="stat-card card bg-secondary text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-map-marked-alt fa-2x mb-2"></i>
+          <h3 id="anomaly-zones">--</h3>
+          <p class="mb-0">{{ _('Zones with Anomalies') }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="stat-card card bg-primary text-white">
+        <div class="card-body text-center">
+          <i class="fas fa-clock fa-2x mb-2"></i>
+          <h3 id="current-time">--:--</h3>
+          <p class="mb-0">{{ _('Current Time') }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. River Pollution Analysis Section -->
+  <div class="row mb-4">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>
+            <i class="fas fa-river"></i> {{ _('Oued Bouregreg - River Pollution
+            Analysis') }}
+          </h5>
+          <div class="btn-group btn-group-sm" role="group">
+            <button
+              type="button"
+              class="btn btn-outline-primary "
+              onclick="switchMapLayer('true_color', event)"
+            >
+              True Color
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              onclick="switchMapLayer('ndwi', event)"
+            >
+              NDWI
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              onclick="switchMapLayer('ndmi', event)"
+            >
+              NDMI
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              onclick="switchMapLayer('swir', event)"
+            >
+              SWIR
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div
+            id="river-map"
+            style="
+              height: 400px;
+              background: #e9ecef;
+              border-radius: 4px;
+              position: relative;
+            "
+          >
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <div class="text-center">
+                <i class="fas fa-map fa-3x text-muted mb-3"></i>
+                <p class="text-muted">
+                  {{ _('Interactive River Map Loading...') }}
+                </p>
+              </div>
+            </div>
+            <div id="river-loading" class="map-spinner d-none">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          <h5>
+            <i class="fas fa-chart-line"></i> {{ _('Pollution Trends (30 Days)')
+            }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <canvas id="pollution-chart" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Sala Al Jadida Dump Site Status -->
+  <div class="row mb-4">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>
+            <i class="fas fa-map-marker-alt"></i> {{ _('Sala Al Jadida - Dump
+            Site Status') }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <div
+            id="dump-map"
+            style="height: 400px; background: #e9ecef; border-radius: 4px"
+          >
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <div class="text-center">
+                <i class="fas fa-map-marked-alt fa-3x text-muted mb-3"></i>
+                <p class="text-muted">{{ _('Dump Sites Map Loading...') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          <h5><i class="fas fa-table"></i> {{ _('Dump Sites Status') }}</h5>
+        </div>
+        <div class="card-body" style="max-height: 400px; overflow-y: auto">
+          <div id="dump-sites-table">
+            <div class="text-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">{{ _('Loading...') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Alert Management System -->
+  <div class="row mb-4">
+    <div class="col-lg-8">
+      <div class="card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5>
+            <i class="fas fa-bell"></i> {{ _('Alert Management System') }}
+          </h5>
+          <div class="d-flex gap-2">
+            <select
+              class="form-select form-select-sm"
+              id="severity-filter"
+              onchange="filterAlerts()"
+            >
+              <option value="">{{ _('All Severities') }}</option>
+              <option value="Low">{{ _('Low') }}</option>
+              <option value="Medium">{{ _('Medium') }}</option>
+              <option value="High">{{ _('High') }}</option>
+            </select>
+            <button
+              class="btn btn-sm btn-outline-primary"
+              onclick="exportAlerts()"
+            >
+              <i class="fas fa-download"></i> {{ _('Export') }}
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="alerts-feed" style="max-height: 400px; overflow-y: auto">
+            <div class="text-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">{{ _('Loading alerts...') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          <h5><i class="fas fa-chart-pie"></i> {{ _('Alert Summary') }}</h5>
+        </div>
+        <div class="card-body">
+          <canvas id="alerts-chart" height="250"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Citizen Submissions Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5><i class="fas fa-users"></i> {{ _('Citizen Submissions') }}</h5>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            {{ _('Citizen submission system will be integrated in the next
+            phase. This section will display user-reported incidents with
+            AI-augmented insights.') }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Analytics & Reports Section -->
+  <div class="row mb-4">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h5><i class="fas fa-chart-bar"></i> {{ _('Weekly Analytics') }}</h5>
+        </div>
+        <div class="card-body">
+          <canvas id="weekly-analytics" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>
+            <i class="fas fa-download"></i> {{ _('Downloads & Exports') }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">{{ _('Date Range') }}</label>
+              <input type="date" class="form-control" id="export-start-date" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">{{ _('End Date') }}</label>
+              <input type="date" class="form-control" id="export-end-date" />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{{ _('Export Type') }}</label>
+            <select class="form-select" id="export-type">
+              <option value="alerts">{{ _('Pollution Alerts') }}</option>
+              <option value="dump-sites">{{ _('Dump Site Status') }}</option>
+              <option value="pollution-data">{{ _('Pollution Data') }}</option>
+            </select>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" onclick="exportData('csv')">
+              <i class="fas fa-file-csv"></i> {{ _('Export as CSV') }}
+            </button>
+            <button class="btn btn-secondary" onclick="exportData('pdf')">
+              <i class="fas fa-file-pdf"></i> {{ _('Export as PDF') }}
+            </button>
+            <button class="btn btn-info" onclick="exportData('json')">
+              <i class="fas fa-file-code"></i> {{ _('Export as JSON') }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Real-time Tiles Preview -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>
+            <i class="fas fa-images"></i> {{ _('Recent Satellite Tiles Preview')
+            }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <div
+            id="tiles-carousel"
+            class="d-flex gap-3"
+            style="overflow-x: auto; padding: 10px"
+          >
+            <div class="text-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">{{ _('Loading tiles...') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. GPT Daily Summary Panel -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>
+            <i class="fas fa-robot"></i> {{ _('AI-Generated Daily Summary') }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <div id="daily-summary" class="alert alert-light">
+            <div class="d-flex align-items-center">
+              <div
+                class="spinner-border spinner-border-sm text-primary me-3"
+                role="status"
+              >
+                <span class="sr-only">{{ _('Generating summary...') }}</span>
+              </div>
+              <span
+                >{{ _('AI is analyzing today\'s environmental data...') }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Alert Detail Modal -->
+<div class="modal fade" id="alertModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ _('Alert Details') }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body" id="alert-modal-body">
+        <!-- Alert details will be loaded here -->
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="markAlertResolved()"
+        >
+          <i class="fas fa-check"></i> {{ _('Mark Resolved') }}
+        </button>
+        <button type="button" class="btn btn-warning" onclick="sendToRidal()">
+          <i class="fas fa-paper-plane"></i> {{ _('Send to Ridal') }}
+        </button>
+        <button type="button" class="btn btn-info" onclick="downloadAlertPDF()">
+          <i class="fas fa-download"></i> {{ _('Download PDF') }}
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          {{ _('Close') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Dashboard JavaScript functionality
+  let riverMap, dumpMap;
+  let pollutionChart, alertsChart, weeklyChart;
+  let currentLayer = null;
+  // Initialize dashboard when page loads
+  document.addEventListener("DOMContentLoaded", function () {
+    initializeDashboard();
+    loadDashboardStats();
+    initializeMaps();
+    initializeCharts();
+    loadAlerts();
+    loadDumpSites();
+    loadTilesPreview();
+    generateDailySummary();
+
+    // Update time every second
+    setInterval(updateCurrentTime, 1000);
+
+    // Refresh data every 5 minutes
+    setInterval(refreshDashboard, 300000);
+  });
+
+  function initializeDashboard() {
+    console.log("EcoSentinel Dashboard initialized");
+    updateCurrentTime();
+  }
+
+  function updateCurrentTime() {
+    const now = new Date();
+    document.getElementById("current-time").textContent =
+      now.toLocaleTimeString();
+  }
+
+  async function loadDashboardStats() {
+    try {
+      const response = await fetch("/api/dashboard/stats");
+      const data = await response.json();
+
+      document.getElementById("total-alerts").textContent = data.total_alerts;
+      document.getElementById("avg-pollution").textContent =
+        data.avg_pollution_score;
+      document.getElementById("full-dumpsters").textContent =
+        data.full_dumpsters;
+      document.getElementById("tiles-processed").textContent =
+        data.tiles_processed;
+      document.getElementById("anomaly-zones").textContent = data.anomaly_zones;
+    } catch (error) {
+      console.error("Error loading dashboard stats:", error);
+    }
+  }
+
+  function initializeMaps() {
+    // Initialize River Map
+    riverMap = L.map("river-map").setView([34.014, -6.806], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors",
+    }).addTo(riverMap);
+
+    // Load default layer when map is ready
+    riverMap.whenReady(() => {
+      const defaultBtn = document.querySelector("[onclick*='true_color']");
+      switchMapLayer("true_color", { target: defaultBtn });
+    });
+
+    // Refresh overlay on zoom or move
+    riverMap.on("moveend", () => {
+      const activeBtn = document.querySelector(".btn-group .btn.active");
+      const layer = currentMapLayer;
+      if (activeBtn && layer) {
+        switchMapLayer(layer, { target: activeBtn });
+      }
+    });
+
+    // Initialize Dump Sites Map
+    dumpMap = L.map("dump-map").setView([33.9977, -6.735], 14);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors",
+    }).addTo(dumpMap);
+  }
+
+  async function initializeCharts() {
+    // Pollution Trends Chart
+    const pollutionCtx = document
+      .getElementById("pollution-chart")
+      .getContext("2d");
+    const trendsResponse = await fetch("/api/dashboard/pollution-trends");
+    const trendsData = await trendsResponse.json();
+
+    pollutionChart = new Chart(pollutionCtx, {
+      type: "line",
+      data: {
+        labels: trendsData.map((d) => new Date(d.date).toLocaleDateString()),
+        datasets: [
+          {
+            label: "NDWI",
+            data: trendsData.map((d) => d.ndwi),
+            borderColor: "rgb(54, 162, 235)",
+            backgroundColor: "rgba(54, 162, 235, 0.1)",
+            tension: 0.1,
+          },
+          {
+            label: "NDMI",
+            data: trendsData.map((d) => d.ndmi), // <-- assuming your API returns 'ndmi'
+            borderColor: "rgb(0, 200, 83)", // greenish color
+            backgroundColor: "rgba(0, 200, 83, 0.1)",
+            tension: 0.1,
+          },
+          {
+            label: "SWIR",
+            data: trendsData.map((d) => d.swir),
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.1)",
+            tension: 0.1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+
+    // Alerts Summary Chart
+    const alertsCtx = document.getElementById("alerts-chart").getContext("2d");
+
+    fetch("/api/dashboard/alerts-summary")
+      .then((res) => res.json())
+      .then((summary) => {
+        alertsChart = new Chart(alertsCtx, {
+          type: "doughnut",
+          data: {
+            labels: ["Low", "Medium", "High"],
+            datasets: [
+              {
+                data: [summary.low, summary.medium, summary.high],
+                backgroundColor: ["#28a745", "#ffc107", "#dc3545"],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            onClick: function (evt, elements) {
+              if (elements.length > 0) {
+                const clickedIndex = elements[0].index;
+                const label = this.data.labels[clickedIndex];
+                document.getElementById("severity-filter").value = label;
+                filterAlerts();
+              }
+            },
+          },
+        });
+      });
+
+    // Weekly Analytics Chart
+    const weeklyCtx = document
+      .getElementById("weekly-analytics")
+      .getContext("2d");
+    weeklyChart = new Chart(weeklyCtx, {
+      type: "bar",
+      data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        datasets: [
+          {
+            label: "Alerts Resolved",
+            data: [12, 19, 3, 5, 2, 3, 9],
+            backgroundColor: "rgba(54, 162, 235, 0.5)",
+          },
+          {
+            label: "New Alerts",
+            data: [8, 11, 6, 7, 4, 6, 12],
+            backgroundColor: "rgba(255, 99, 132, 0.5)",
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }
+
+  async function loadAlerts() {
+    try {
+      const severity = document.getElementById("severity-filter").value;
+      const response = await fetch(
+        `/api/dashboard/alerts?severity=${severity}&per_page=100`
+      );
+
+      const alerts = await response.json();
+
+      const alertsFeed = document.getElementById("alerts-feed");
+      alertsFeed.innerHTML = "";
+
+      alerts.forEach((alert) => {
+        const severityClass =
+          alert.severity === "High"
+            ? "danger"
+            : alert.severity === "Medium"
+            ? "warning"
+            : "success";
+
+        const alertElement = document.createElement("div");
+        alertElement.className = "alert alert-" + severityClass + " mb-2 alert-clickable";
+        alertElement.style.cursor = "pointer";
+        alertElement.setAttribute("data-toggle", "modal");
+        alertElement.setAttribute("data-target", "#alertModal");
+        alertElement.innerHTML = `
+          <div class="d-flex justify-content-between align-items-start"
+              data-id="${alert.id}"
+              data-type="${alert.type}"
+              data-severity="${alert.severity}"
+              data-detected="${alert.detected_at}"
+              data-description="${alert.description || ''}"
+              data-triggered="${alert.triggered_by || ''}"
+              data-tile="${alert.tile_name}"
+              onclick="showAlertDetailFromElement(this)">
+            <div>
+              <strong>${alert.type}</strong> - ${alert.tile_name}
+              <br><small class="text-muted">${new Date(alert.detected_at).toLocaleString()}</small>
+              <br>${alert.description || "No description available"}
+            </div>
+            <span class="badge bg-${severityClass}">${alert.severity}</span>
+          </div>
+        `;
+        alertsFeed.appendChild(alertElement);
+      });
+    } catch (error) {
+      console.error("Error loading alerts:", error);
+    }
+  }
+  function getSeverityClass(severity) {
+  switch (severity) {
+    case "High": return "danger";
+    case "Medium": return "warning";
+    case "Low": return "success";
+    default: return "secondary";
+  }
+}
+ function showAlertDetailFromElement(el) {
+  const modalBody = document.getElementById("alert-modal-body");
+  modalBody.innerHTML = `
+    <h5>${el.dataset.type}</h5>
+    <p><strong>Severity:</strong> <span class="badge bg-${getSeverityClass(el.dataset.severity)}">${el.dataset.severity}</span></p>
+    <p><strong>Tile:</strong> ${el.dataset.tile}</p>
+    <p><strong>Detected At:</strong> ${new Date(el.dataset.detected).toLocaleString()}</p>
+    <p><strong>Triggered By:</strong> ${el.dataset.triggered || 'N/A'}</p>
+    <p><strong>Description:</strong> ${el.dataset.description || 'No details provided.'}</p>
+  `;
+  new bootstrap.Modal(document.getElementById("alertModal")).show();
+}
+
+  async function loadDumpSites() {
+    try {
+      const response = await fetch("/api/dashboard/dump-sites");
+      const sites = await response.json();
+
+      // Clear existing markers
+      dumpMap.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+          dumpMap.removeLayer(layer);
+        }
+      });
+
+      // Add markers to map
+      sites.forEach((site) => {
+        const icon = L.divIcon({
+          className: "custom-div-icon",
+          html: `<div style="background-color: ${
+            site.status === "full" ? "#dc3545" : "#28a745"
+          }; 
+                       width: 20px; height: 20px; border-radius: 50%; border: 2px solid white;"></div>`,
+          iconSize: [20, 20],
+          iconAnchor: [10, 10],
+        });
+
+        const marker = L.marker([site.latitude, site.longitude], {
+          icon,
+        }).addTo(dumpMap).bindPopup(`
+                    <strong>${site.name}</strong><br>
+                    Status: <span class="badge bg-${
+                      site.status === "full" ? "danger" : "success"
+                    }">${site.status}</span><br>
+                    ${site.description}<br>
+                    <small>Last updated: ${new Date(
+                      site.last_updated
+                    ).toLocaleString()}</small>
+                `);
+      });
+
+      // Update table
+      const tableContainer = document.getElementById("dump-sites-table");
+      tableContainer.innerHTML = "";
+
+      sites.forEach((site) => {
+        const row = document.createElement("div");
+        row.className = "border-bottom py-2";
+        row.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>${site.name}</strong>
+                        <br><small class="text-muted">${
+                          site.description
+                        }</small>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge bg-${
+                          site.status === "full" ? "danger" : "success"
+                        }">${site.status}</span>
+                        <br><button class="btn btn-sm btn-outline-primary mt-1" 
+                                   onclick="toggleDumpStatus(${site.id}, '${
+          site.status
+        }')">
+                            Toggle
+                        </button>
+                    </div>
+                </div>
+            `;
+        tableContainer.appendChild(row);
+      });
+    } catch (error) {
+      console.error("Error loading dump sites:", error);
+    }
+  }
+
+  async function loadTilesPreview() {
+    try {
+      const response = await fetch("/api/dashboard/tiles");
+      const tiles = await response.json();
+
+      const carousel = document.getElementById("tiles-carousel");
+      carousel.innerHTML = "";
+
+      tiles.slice(0, 10).forEach((tile) => {
+        const tileElement = document.createElement("div");
+        tileElement.className = "flex-shrink-0";
+        tileElement.style.width = "200px";
+
+        const imageUrl = tile.tile_url || "/static/placeholder-tile.png";
+
+        tileElement.innerHTML = `
+                <div class="card">
+                    <img src="${imageUrl}" class="card-img-top" style="height: 120px; object-fit: cover;" 
+                         alt="${
+                           tile.name
+                         }" onerror="this.src='/static/placeholder-tile.png'">
+                    <div class="card-body p-2">
+                        <h6 class="card-title mb-1">${tile.name}</h6>
+                        <small class="text-muted">${new Date(
+                          tile.updated_at
+                        ).toLocaleDateString()}</small>
+                    </div>
+                </div>
+            `;
+        carousel.appendChild(tileElement);
+      });
+    } catch (error) {
+      console.error("Error loading tiles preview:", error);
+    }
+  }
+
+  function generateDailySummary() {
+    // Simulate AI-generated summary
+    setTimeout(() => {
+      const summaries = [
+        "Pollution levels in Sector 3 peaked at 14:30 due to increased river turbidity. Cleanup has been dispatched to 3 dumpsters in the eastern zone.",
+        "Water quality indicators show improvement in the northern river segments. 2 high-priority alerts were resolved today.",
+        "Satellite imagery analysis detected new waste accumulation near Sala Al Jadida. Automated alert sent to Ridal for immediate response.",
+        "NDWI values indicate stable water conditions across most monitored areas. 1 medium-severity alert requires attention in the central zone.",
+      ];
+
+      const randomSummary =
+        summaries[Math.floor(Math.random() * summaries.length)];
+      document.getElementById("daily-summary").innerHTML = `
+            <div class="d-flex align-items-start">
+                <i class="fas fa-robot text-primary me-3 mt-1"></i>
+                <div>
+                    <strong>Today's Environmental Summary:</strong><br>
+                    ${randomSummary}
+                    <br><small class="text-muted">Generated at ${new Date().toLocaleTimeString()}</small>
+                </div>
+            </div>
+        `;
+    }, 2000);
+  }
+
+  async function switchMapLayer(layer, event) {
+    currentMapLayer = layer;
+    document
+      .querySelectorAll(".btn-group .btn")
+      .forEach((btn) => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    if (currentLayer) riverMap.removeLayer(currentLayer);
+
+    try {
+      // Get map bounds dynamically
+      const bounds = riverMap.getBounds();
+      const minLat = bounds.getSouth();
+      const minLon = bounds.getWest();
+      const maxLat = bounds.getNorth();
+      const maxLon = bounds.getEast();
+
+      // Call API with bbox params
+      const tileUrl =
+        `/api/dashboard/river-layer-url?layer=${layer}` +
+        `&minLat=${minLat}&minLon=${minLon}&maxLat=${maxLat}&maxLon=${maxLon}`;
+
+      // Set image overlay to match visible map bounds
+      currentLayer = L.imageOverlay(tileUrl, bounds);
+      currentLayer.addTo(riverMap);
+    } catch (err) {
+      console.error("Failed to load layer:", err);
+    }
+  }
+
+  async function toggleDumpStatus(siteId, currentStatus) {
+    const newStatus = currentStatus === "full" ? "empty" : "full";
+
+    try {
+      const response = await fetch("/api/dashboard/update-dump-status", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          site_id: siteId,
+          status: newStatus,
+        }),
+      });
+
+      if (response.ok) {
+        loadDumpSites(); // Reload the dump sites
+        loadDashboardStats(); // Update stats
+      }
+    } catch (error) {
+      console.error("Error updating dump status:", error);
+    }
+  }
+
+  function filterAlerts() {
+    const severity = document.getElementById("severity-filter").value;
+    loadAlerts(); // Reload with filter - you'd pass the severity parameter
+  }
+
+  function exportData(format) {
+    const type = document.getElementById("export-type").value;
+    const startDate = document.getElementById("export-start-date").value;
+    const endDate = document.getElementById("export-end-date").value;
+
+    console.log(
+      `Exporting ${type} as ${format} from ${startDate} to ${endDate}`
+    );
+    // Implement export functionality
+  }
+
+  function refreshDashboard() {
+    loadDashboardStats();
+    loadAlerts();
+    loadDumpSites();
+    loadTilesPreview();
+    generateDailySummary();
+  }
+
+  // Additional functions for modal interactions
+  function markAlertResolved() {
+    console.log("Marking alert as resolved");
+  }
+
+  function sendToRidal() {
+    console.log("Sending alert to Ridal");
+  }
+
+  function downloadAlertPDF() {
+    console.log("Downloading alert PDF");
+  }
+
+  function exportAlerts() {
+    console.log("Exporting alerts");
+  }
+</script>
+
+<style>
+  .stat-card {
+    transition: transform 0.2s;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .dashboard-container {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .custom-div-icon {
+    background: none;
+    border: none;
+  }
+
+  #tiles-carousel::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  #tiles-carousel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  #tiles-carousel::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  #tiles-carousel::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+</style>
+
+{% endblock %}
